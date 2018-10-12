@@ -56,11 +56,14 @@ class LeadsController extends Controller
     public function anyData()
     {
         $leads = Lead::select(
-            ['id', 'title', 'user_created_id', 'client_id', 'user_assigned_id', 'contact_date']
+            ['id', 'title', 'name', 'photo', 'user_created_id', 'client_id', 'user_assigned_id', 'contact_date']
         )->where('status', 1)->get();
         return Datatables::of($leads)
             ->addColumn('titlelink', function ($leads) {
                 return '<a href="leads/' . $leads->id . '" ">' . $leads->title . '</a>';
+            })
+            ->addColumn('photoimg', function ($leads) {
+                return '<img style="width:64px;" src="' . $leads->photo . '" "/>';
             })
             ->editColumn('user_created_id', function ($leads) {
                 return $leads->creator->name;

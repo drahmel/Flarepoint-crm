@@ -8,6 +8,8 @@
         <thead>
         <tr>
 
+            <th>{{ __('Photo') }}</th>
+            <th>{{ __('Name') }}</th>
             <th>{{ __('Title') }}</th>
             <th>{{ __('Created by') }}</th>
             <th>{{ __('Deadline') }}</th>
@@ -27,6 +29,8 @@
             ajax: '{!! route('leads.data') !!}',
             columns: [
 
+                {data: 'photoimg', name: 'photo'},
+                {data: 'name', name: 'name'},
                 {data: 'titlelink', name: 'title'},
                 {data: 'user_created_id', name: 'user_created_id'},
                 {data: 'contact_date', name: 'contact_date',},
