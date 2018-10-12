@@ -19,6 +19,21 @@
 	.lead-name {
 		font-weight: bold;
 	}
+	.col-fixed-100{
+		padding-left:20px;
+		width:80px;
+		position:fixed;
+		height:100%;
+		z-index:1;
+	}
+	.col-offset-100{
+		padding-left:115px;
+		z-index:0;
+	}
+	.lead-experience {
+		max-height: 200px;
+		overflow-x: scroll;
+	}
 	</style>
     <div class="row" style="display:none;">
         @include('partials.clientheader')
@@ -33,19 +48,39 @@
 				</div>
 	        	<div class="panel-body">
 	        		<div class="row">
-	        			<div class="col-md-2">
+	        			<div class="col-fixed-100">
 							<img class="lead-photo" src="{{$lead->photo}}" />
 						</div>
-	        			<div class="col-md-10">
+	        			<div class="col-md-10 col-offset-100">
 							<div><span class="smalltext">Current Title:</span> {{$lead->title}}</div>
 							<div><span class="smalltext">Location:</span> {{$lead->location}}</div>
 							<div><span class="smalltext">Summary:</span> {{$lead->summary}}</div>
+							<div><span class="smalltext">URL:</span><a href="{{$lead->url}}" target="_black">{{$lead->url}}</a></div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
     </div>
+
+    <div class="row">
+        <div class="col-md-9">
+        	<div class="panel panel-primary shadow">
+	        	<div class="panel-heading">
+					<span class="lead-name">Experience</span>
+				</div>
+	        	<div class="panel-body">
+	        		<div class="row">
+	        			<div class="col-md-12 lead-experience">
+	        				<pre>{{$lead->experience}}</pre>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+
+
     <div class="row">
         <div class="col-md-9">
             @include('partials.comments', ['subject' => $lead])
