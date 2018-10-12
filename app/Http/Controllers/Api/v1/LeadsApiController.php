@@ -29,9 +29,9 @@ ADD COLUMN `experience` VARCHAR(255) NULL AFTER `summary`;
     public function postLead(Request $request)
     {
     	$out = ['success' => 0];
-    	$out['data'] = $request->input('body');
+    	$body = $request->input('body');
     	$lead = new Models\Lead();
-    	$data =['title' => "TEST LEAD", 'status' => 1];
+    	$data =['title' => date('Y-m-d H:i:s'), 'status' => 1];
     	$data['name'] = $request->input('name');
     	$userId = 1;
     	$lead->user_assigned_id = $userId;
@@ -43,9 +43,23 @@ ADD COLUMN `experience` VARCHAR(255) NULL AFTER `summary`;
     	if($request->input('title')) {
     		$lead->location = $request->input('location');
     	}
-    	$lead->photo = $request->input('photo');
-    	$lead->summary = $request->input('summary');
-    	$lead->experience = $request->input('experience');
+    	if(!empty($body)) {
+    		$jsonData = json_decode($body, true);
+    		$data = array_merge($data, $jsonData);
+    	}
+    	if(!empty($data['photo'])) {
+    		$regex = '/((http|https)\:\/\/)?[a-zA-Z0-9\.\/\?\:@\-_=#]+\.([a-zA-Z0-9\&\.\/\?\:@\-_=#])*/';
+    		$url = $data['photo'];
+    		$matches = [];
+    		preg_match($regex, $url, $matches);
+    		$data['matches'] = $matches;
+    		if(!empty($matches[0])) {
+    			$data['photo'] = $matches[0];
+    		} else {
+				$data['photo'] = null;
+    		}
+    	}
+
     	$lead->fill($data);
     	$lead->save();
     	$out['data'] = $data;
