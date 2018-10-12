@@ -10,15 +10,16 @@
 |
 */
 Route::auth();
+Route::get('/lead', 'Api\v1\LeadsApiController@postLead');
 Route::get('/logout', 'Auth\LoginController@logout');
 Route::group(['middleware' => ['auth']], function () {
-    
+
     /**
      * Main
      */
         Route::get('/', 'PagesController@dashboard');
         Route::get('dashboard', 'PagesController@dashboard')->name('dashboard');
-        
+
     /**
      * Users
      */
@@ -46,8 +47,8 @@ Route::group(['middleware' => ['auth']], function () {
     });
         Route::resource('clients', 'ClientsController');
 	    Route::resource('documents', 'DocumentsController');
-	
-      
+
+
     /**
      * Tasks
      */
@@ -82,7 +83,7 @@ Route::group(['middleware' => ['auth']], function () {
     /**
      * Departments
      */
-        Route::resource('departments', 'DepartmentsController'); 
+        Route::resource('departments', 'DepartmentsController');
 
     /**
      * Integrations
