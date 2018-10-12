@@ -22,20 +22,20 @@
     <div class="navbar navbar-default navbar-top">
         <!--NOTIFICATIONS START-->
 <div class="menu">
-   
+
     <div class="notifications-header"><p>Notifications</p> </div>
   <!-- Menu -->
  <ul>
  <?php $notifications = auth()->user()->unreadNotifications; ?>
 
     @foreach($notifications as $notification)
-   
+
     <a href="{{ route('notification.read', ['id' => $notification->id])  }}" onClick="postRead({{ $notification->id }})">
-    <li> 
+    <li>
  <img src="/{{ auth()->user()->avatar }}" class="notification-profile-image">
     <p>{{ $notification->data['message']}}</p></li>
     </a>
-    @endforeach 
+    @endforeach
   </ul>
 </div>
 
@@ -54,7 +54,7 @@ $('body').click(function(e) {
   if ($('.menu').hasClass('bar')) {
     $(".menu").toggleClass('bar')
   }
-})      
+})
                   id = {};
                         function postRead(id) {
                             $.ajax({
@@ -198,7 +198,17 @@ $('body').click(function(e) {
     </div>
     <!-- /#page-content-wrapper -->
 </div>
-    <script type="text/javascript" src="{{ URL::asset('js/app.js') }}"></script>
+	<script
+	  src="https://code.jquery.com/jquery-3.3.1.min.js"
+	  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	  crossorigin="anonymous"></script>
+	<script
+	  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+	  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+	  crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <!-- script type="text/javascript" src="{{ URL::asset('js/app.js') }}"></script -->
     <script type="text/javascript" src="{{ URL::asset('js/dropzone.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/jquery.dataTables.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/jasny-bootstrap.min.js') }}"></script>
