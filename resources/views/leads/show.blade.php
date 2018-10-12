@@ -19,17 +19,6 @@
 	.lead-name {
 		font-weight: bold;
 	}
-	.col-fixed-100{
-		padding-left:20px;
-		width:80px;
-		position:fixed;
-		height:100%;
-		z-index:1;
-	}
-	.col-offset-100{
-		padding-left:115px;
-		z-index:0;
-	}
 	.lead-experience {
 		max-height: 200px;
 		overflow-x: scroll;
@@ -56,43 +45,7 @@
 							<div><span class="smalltext">Location:</span> {{$lead->location}}</div>
 							<div><span class="smalltext">Summary:</span> {{$lead->summary}}</div>
 							<div><span class="smalltext">URL:</span><a href="{{$lead->url}}" target="_black">{{$lead->url}}</a></div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-9">
-        	<div class="panel panel-primary shadow">
-	        	<div class="panel-heading">
-					<span class="lead-name">Experience</span>
-				</div>
-	        	<div class="panel-body">
-	        		<div class="row">
-	        			<div class="col-md-12 lead-experience">
-	        				<pre>{{$lead->experience}}</pre>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-    </div>
-
-
-    <div class="row">
-        <div class="col-md-9">
-            @include('partials.comments', ['subject' => $lead])
-        </div>
-        <div class="col-md-3">
-            <div class="sidebarheader">
-                <p> {{ __('Lead information') }}</p>
-            </div>
-            <div class="sidebarbox">
-                <p>{{ __('Assigned to') }}:
-                    <a href="{{route('leads.show', $lead->user->id)}}">
-                        {{$lead->user->name}}</a></p>
                 <p>{{ __('Created at') }}: {{ date('d F, Y, H:i', strtotime($lead->created_at))}} </p>
                 @if($lead->days_until_contact < 2)
                     <p>{{ __('Follow up') }}: <span style="color:red;">{{date('d, F Y, H:i', strTotime($lead->contact_date))}}
@@ -116,6 +69,21 @@
                 @elseif($lead->status == 3)
                     {{ __('Status') }}: {{ __('Not interested') }}
                 @endif
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+        <div class="col-md-3">
+            <div class="sidebarheader">
+                <p> {{ __('Lead information') }}</p>
+            </div>
+            <div class="sidebarbox">
+                <p>{{ __('Assigned to') }}:
+                    <a href="{{route('leads.show', $lead->user->id)}}">
+                        {{$lead->user->name}}</a></p>
 
             </div>
             @if($lead->status == 1)
@@ -147,6 +115,48 @@
             </div>
         </div>
 
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-9">
+            @include('partials.comments', ['subject' => $lead])
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-9">
+        	<div class="panel panel-primary shadow">
+	        	<div class="panel-heading">
+					<span class="lead-name">Experience</span>
+				</div>
+	        	<div class="panel-body">
+	        		<div class="row">
+	        			<div class="col-md-12 lead-experience">
+	        				<pre>{{$lead->experience}}</pre>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-9">
+        	<div class="panel panel-primary shadow">
+	        	<div class="panel-heading">
+					<span class="lead-name">Education</span>
+				</div>
+	        	<div class="panel-body">
+	        		<div class="row">
+	        			<div class="col-md-12 lead-experience">
+	        				<pre>{{$lead->education}}</pre>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
     </div>
 
 
