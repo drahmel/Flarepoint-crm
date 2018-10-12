@@ -14,6 +14,11 @@ class Lead extends Model
         'user_created_id',
         'client_id',
         'contact_date',
+        'name',
+        'location',
+        'photo',
+        'summary',
+        'experience',
 
     ];
     protected $dates = ['contact_date'];
@@ -34,7 +39,7 @@ class Lead extends Model
     {
         return $this->belongsTo(Client::class, 'client_id');
     }
-    
+
     public function comments()
     {
         return $this->morphMany(Comment::class, 'source');
