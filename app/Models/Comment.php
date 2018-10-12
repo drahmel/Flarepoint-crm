@@ -11,6 +11,20 @@ class Comment extends Model
         'user_id'
     ];
     protected $hidden = ['remember_token'];
+    protected $orderBy = "id";
+    protected $orderDirection = 'desc';
+
+
+	public function newQuery($ordered = true)
+	{
+		$query = parent::newQuery();
+
+		if (empty($ordered)) {
+			return $query;
+		}
+
+		return $query->orderBy($this->orderBy, $this->orderDirection);
+	}
 
     /**
      * Get all of the owning commentable models.
@@ -19,7 +33,7 @@ class Comment extends Model
     {
         return $this->morphTo('source');
     }
-    
+
     public function task()
     {
         return $this->belongsTo(Task::class, 'task_id', 'id');
@@ -33,7 +47,7 @@ class Comment extends Model
     public function mentionedUsers()
     {
         preg_match_all('/@([\w\-]+)/', $this->description, $matches);
- 
+
         return $matches[1];
     }
 
@@ -45,6 +59,6 @@ class Comment extends Model
           'e(<a href="/profiles/$1">$0</a>',
           $description
       );
- 
+
     }*/
 }
