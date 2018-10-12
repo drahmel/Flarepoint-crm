@@ -14,7 +14,7 @@
 @endpush
 	<style>
 	.lead-photo {
-		width: 64px;
+		width: 128px;
 	}
 	.lead-name {
 		font-weight: bold;
@@ -48,10 +48,10 @@
 				</div>
 	        	<div class="panel-body">
 	        		<div class="row">
-	        			<div class="col-fixed-100">
+	        			<div class="col-md-2">
 							<img class="lead-photo" src="{{$lead->photo}}" />
 						</div>
-	        			<div class="col-md-10 col-offset-100">
+	        			<div class="col-md-10 ">
 							<div><span class="smalltext">Current Title:</span> {{$lead->title}}</div>
 							<div><span class="smalltext">Location:</span> {{$lead->location}}</div>
 							<div><span class="smalltext">Summary:</span> {{$lead->summary}}</div>

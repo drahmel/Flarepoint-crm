@@ -20,6 +20,7 @@ class Lead extends Model
         'summary',
         'experience',
         'url',
+        'education',
 
     ];
     protected $dates = ['contact_date'];
