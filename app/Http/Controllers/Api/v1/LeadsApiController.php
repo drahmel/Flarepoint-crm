@@ -18,6 +18,9 @@ ADD COLUMN `photo` VARCHAR(255) NULL AFTER `location`,
 ADD COLUMN `summary` VARCHAR(255) NULL AFTER `photo`,
 ADD COLUMN `experience` VARCHAR(255) NULL AFTER `summary`;
 
+ADD COLUMN `department_id` INT(10) NULL AFTER `experience`;
+
+
 */
     public function __construct()
     {

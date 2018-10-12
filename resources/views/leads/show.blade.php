@@ -12,11 +12,29 @@
         });
     </script>
 @endpush
-    <div class="row">
+	<style>
+	.lead-photo {
+		width: 64px;
+	}
+	.lead-name {
+		font-weight: bold;
+	}
+	</style>
+    <div class="row" style="display:none;">
         @include('partials.clientheader')
         @include('partials.userheader')
     </div>
 
+    <div class="row">
+        <div class="col-md-9">
+        	<div class="panel panel-primary shadow">
+	        	<div class="panel-heading">
+					<span class="lead-name">{{$lead->name}}</span> -- {{$lead->title}}
+				</div>
+				<img class="lead-photo" src="{{$lead->photo}}" />
+			</div>
+		</div>
+    </div>
     <div class="row">
         <div class="col-md-9">
             @include('partials.comments', ['subject' => $lead])
@@ -119,6 +137,5 @@
         </div>
     </div>
 @stop
-       
 
-   
+
