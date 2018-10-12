@@ -3,6 +3,7 @@ $subject instanceof \App\Models\Task ? $instance = 'task' : $instance = 'lead';
 // TODO: Make this a config
 $dateFormat = 'd F, Y, H:i:s';
 $dateFormat = 'D, F d, Y, h:i:s a';
+$curDate = new DateTime();
 
 ?>
 
@@ -45,7 +46,9 @@ $dateFormat = 'D, F d, Y, h:i:s a';
                 {{ date($dateFormat, strtotime($comment->created_at))}}
                 @if($comment->updated_at != $comment->created_at)
                         <br/>{{ __('Modified') }} : {{date($dateFormat, strtotime($comment->updated_at))}}
-                @endif</p>
+                @endif
+                -- <?php $date2 = new DateTime($comment->created_at);$interval = $curDate->diff($date2);echo $interval->days . " days ago";  ?>
+                </p>
             <p>  {{ $comment->description }}</p>
             <p class="smalltext">{{ __('Comment by') }}: <a
                         href="{{route('users.show', $comment->user->id)}}"> {{$comment->user->name}} </a>

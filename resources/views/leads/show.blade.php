@@ -1,3 +1,6 @@
+<?php
+
+?>
 @extends('layouts.master')
 
 @section('heading')
