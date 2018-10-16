@@ -64,10 +64,24 @@ ADD COLUMN `department_id` INT(10) NULL AFTER `experience`;
     	}
 
     	$lead->fill($data);
-    	$lead->save();
+    	$out['success'] = intval($lead->save());
+    	if($out['success'] && !empty($data['comment'])) {
+    		$comment = new Models\Comment();
+    		$comment->description = $data['comment'];
+    		$comment->user_id = \Auth::user()->id;
+    		$comment->source_id = $lead->id;
+    		$comment->source_type = "App\Models\Lead";
+    		$comment->save();
+    	}
+
     	$out['data'] = $data;
 
-        return $out;
+    	if(!$request->input('json')) {
+    		header('Content-Type: image/png');
+    		echo base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII=');
+		} else {
+			return $out;
+		}
     }
 
 }
