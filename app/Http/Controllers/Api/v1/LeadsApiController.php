@@ -36,7 +36,7 @@ ADD COLUMN `department_id` INT(10) NULL AFTER `experience`;
     	$lead = new Models\Lead();
     	$data =['title' => date('Y-m-d H:i:s'), 'status' => 1];
     	$data['name'] = $request->input('name');
-    	$userId = 1;
+    	$userId = \Auth::user()->id;
     	$lead->user_assigned_id = $userId;
     	$lead->user_created_id = $userId;
     	$lead->client_id = 1;

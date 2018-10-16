@@ -15,6 +15,7 @@ class Comment extends Model
     protected $orderDirection = 'desc';
 
 
+    // Set ORDER BY for all new queries
 	public function newQuery($ordered = true)
 	{
 		$query = parent::newQuery();
