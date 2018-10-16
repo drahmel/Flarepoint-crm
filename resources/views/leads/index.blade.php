@@ -14,6 +14,7 @@
             <th>{{ __('Created by') }}</th>
             <th>{{ __('Deadline') }}</th>
             <th>{{ __('Assigned') }}</th>
+            <th>{{ __('Updated At') }}</th>
 
         </tr>
         </thead>
@@ -26,6 +27,7 @@
         $('#leads-table').DataTable({
             processing: true,
             serverSide: true,
+            order: [[ 6, "desc" ]],
             ajax: '{!! route('leads.data') !!}',
             columns: [
 
@@ -35,6 +37,7 @@
                 {data: 'user_created_id', name: 'user_created_id'},
                 {data: 'contact_date', name: 'contact_date',},
                 {data: 'user_assigned_id', name: 'user_assigned_id'},
+                {data: 'updated_at', name: 'updated_at'},
 
 
             ]
