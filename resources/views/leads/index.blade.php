@@ -11,8 +11,8 @@
             <th>{{ __('Photo') }}</th>
             <th>{{ __('Name') }}</th>
             <th>{{ __('Title') }}</th>
-            <th>{{ __('Created by') }}</th>
-            <th>{{ __('Deadline') }}</th>
+            <th>{{ __('Location') }}</th>
+            <th>{{ __('Status') }}</th>
             <th>{{ __('Assigned') }}</th>
             <th>{{ __('Updated At') }}</th>
 
@@ -34,8 +34,8 @@
                 {data: 'photoimg', name: 'photo'},
                 {data: 'name', name: 'leads.name', searchable: true},
                 {data: 'titlelink', name: 'leads.title', searchable: true},
-                {data: 'user_created_id', name: 'user_created_id'},
-                {data: 'contact_date', name: 'contact_date',},
+                {data: 'location', name: 'location',},
+                {data: 'workflow_step_id', name: 'workflow_step_id'},
                 {data: 'user_assigned_id', name: 'user_assigned_id'},
                 {data: 'updated_at', name: 'updated_at'},
 

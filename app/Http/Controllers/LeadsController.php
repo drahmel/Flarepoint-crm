@@ -59,7 +59,7 @@ class LeadsController extends Controller
     	$dateFormat = 'm/d/Y';
 
         $leads = Lead::select(
-            ['id', 'title', 'name', 'photo', 'user_created_id', 'client_id', 'user_assigned_id', 'contact_date', 'updated_at']
+            ['id', 'title', 'name', 'location', 'photo', 'workflow_step_id', 'user_created_id', 'client_id', 'user_assigned_id', 'contact_date', 'updated_at']
         )->where('status', 1);
         return Datatables::of($leads)
             ->addColumn('namelink', function ($leads) {
@@ -84,11 +84,15 @@ class LeadsController extends Controller
                 	;
             })
             ->addColumn('photoimg', function ($leads) {
-                return '<img style="width:64px;" src="' . $leads->photo . '" "/>';
+                return '<img style="width:64px;" src="' . (!empty($leads->photo) ? $leads->photo : '/images/persona_placeholder.png') . '" "/>';
             })
             ->editColumn('user_created_id', function ($leads) {
                 return $leads->creator->name;
             })
+            ->editColumn('workflow_step_id', function ($leads) {
+                return $leads->workflowStep->title;
+            })
+
             ->editColumn('contact_date', function ($leads) use ($dateFormat) {
                 return $leads->contact_date ? with(new Carbon($leads->contact_date))
                     ->format($dateFormat) : '';

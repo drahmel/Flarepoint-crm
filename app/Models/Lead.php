@@ -3,6 +3,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon;
+use App\Models;
 
 class Lead extends Model
 {
@@ -24,6 +25,7 @@ class Lead extends Model
         'company',
         'phone_num',
         'email',
+        'worflow_step_id',
 
     ];
     protected $dates = ['contact_date'];
@@ -47,6 +49,11 @@ class Lead extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_assigned_id');
+    }
+
+    public function workflowStep()
+    {
+        return $this->belongsTo('App\Models\WorkflowStep', 'workflow_step_id');
     }
 
     public function creator()
