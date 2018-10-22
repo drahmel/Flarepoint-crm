@@ -1,5 +1,7 @@
 <?php
-
+$dateFormat = 'm/d/Y';
+$dateFormat = 'd, F Y H:i';
+$dateFormat = 'D, M d, Y, h:i:s a';
 ?>
 @extends('layouts.master')
 
@@ -64,16 +66,16 @@
 							<div><span class="smalltext">URL:</span><a href="{{$lead->url}}" target="_black">{{$lead->url}}</a></div>
 							<div class="inline">
 
-								<p>{{ __('Created at') }}: {{ date('d F, Y, H:i', strtotime($lead->created_at))}} </p>
+								<p>{{ __('Created at') }}: {{ date($dateFormat, strtotime($lead->created_at))}} </p>
 								@if($lead->days_until_contact < 2)
-									<p>{{ __('Follow up') }}: <span style="color:red;">{{date('d, F Y, H:i', strTotime($lead->contact_date))}}
+									<p>{{ __('Follow up') }}: <span style="color:red;">{{date($dateFormat, strTotime($lead->contact_date))}}
 
 											@if($lead->status == 1) ({!! $lead->days_until_contact !!}) @endif</span> <i
 												class="glyphicon glyphicon-calendar" data-toggle="modal"
 												data-target="#ModalFollowUp"></i></p> <!--Remove days left if lead is completed-->
 
 								@else
-									<p>{{ __('Follow up') }}: <span style="color:green;">{{date('d, F Y, H:i', strTotime($lead->contact_date))}}
+									<p>{{ __('Follow up') }}: <span style="color:green;">{{date($dateFormat, strTotime($lead->contact_date))}}
 
 											@if($lead->status == 1) ({!! $lead->days_until_contact !!})<i
 													class="glyphicon glyphicon-calendar" data-toggle="modal"
@@ -128,7 +130,7 @@
                 @foreach($lead->activity as $activity)
 
                     <div class="feed-item">
-                        <div class="activity-date">{{date('d, F Y H:i', strTotime($activity->created_at))}}</div>
+                        <div class="activity-date">{{date($dateFormat, strTotime($activity->created_at))}}</div>
                         <div class="activity-text">{{$activity->text}}</div>
 
                     </div>
