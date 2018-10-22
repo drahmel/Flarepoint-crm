@@ -67,9 +67,21 @@ class LeadsController extends Controller
             })
             ->addColumn('titlelink', function ($leads) {
 				$comments = $leads->comments;
-				$lastComment = $comments[count($comments)-1];
-                return '<a href="leads/' . $leads->id . '" ">' . $leads->title . '</a>' .
-                	"<div class='smalltext'>Most Recent Comment ({$lastComment['updated_at']}): {$lastComment['description']}</div>";
+				$lastCommentStr = "";
+				if(count($comments) > 0) {
+					$maxId = -1;
+					// TODO: Hack until I can figure out the morphMany sorting
+					foreach($comments as $comment) {
+						if($comment->id > $maxId) {
+							$lastComment = $comment;
+							$maxId = $comment->id;
+						}
+					}
+
+					$lastCommentStr = "<div class='smalltext'>Most Recent Comment ({$lastComment['updated_at']}): {$lastComment['description']}</div>";
+				}
+                return '<a href="leads/' . $leads->id . '" ">' . $leads->title . '</a>' . $lastCommentStr
+                	;
             })
             ->addColumn('photoimg', function ($leads) {
                 return '<img style="width:64px;" src="' . $leads->photo . '" "/>';
