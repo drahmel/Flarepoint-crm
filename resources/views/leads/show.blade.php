@@ -26,6 +26,14 @@
 		max-height: 200px;
 		overflow-x: scroll;
 	}
+	.inline div, .inline p {
+		float:left;
+		margin-right: 10px;
+	}
+	.inline:after {
+		content: "";
+		clear:both;
+	}
 	</style>
     <div class="row" style="display:none;">
         @include('partials.clientheader')
@@ -45,34 +53,44 @@
 						</div>
 	        			<div class="col-md-10 ">
 							<div><span class="smalltext">Current Title:</span> {{$lead->title}}</div>
-							<div><span class="smalltext">Location:</span> {{$lead->location}}</div>
+							<div><span class="smalltext">Company:</span> {{$lead->company}}</div>
+							<div class="inline">
+								<div><span class="smalltext">Location:</span> {{$lead->location}}</div>
+								<div><span class="smalltext">Phone:</span> {{$lead->phone_num}}</div>
+								<div><span class="smalltext">Email:</span> {{$lead->email}}</div>
+							</div>
+							<div style="clear:both;"></div>
 							<div><span class="smalltext">Summary:</span> {{$lead->summary}}</div>
 							<div><span class="smalltext">URL:</span><a href="{{$lead->url}}" target="_black">{{$lead->url}}</a></div>
+							<div class="inline">
 
-                <p>{{ __('Created at') }}: {{ date('d F, Y, H:i', strtotime($lead->created_at))}} </p>
-                @if($lead->days_until_contact < 2)
-                    <p>{{ __('Follow up') }}: <span style="color:red;">{{date('d, F Y, H:i', strTotime($lead->contact_date))}}
+								<p>{{ __('Created at') }}: {{ date('d F, Y, H:i', strtotime($lead->created_at))}} </p>
+								@if($lead->days_until_contact < 2)
+									<p>{{ __('Follow up') }}: <span style="color:red;">{{date('d, F Y, H:i', strTotime($lead->contact_date))}}
 
-                            @if($lead->status == 1) ({!! $lead->days_until_contact !!}) @endif</span> <i
-                                class="glyphicon glyphicon-calendar" data-toggle="modal"
-                                data-target="#ModalFollowUp"></i></p> <!--Remove days left if lead is completed-->
+											@if($lead->status == 1) ({!! $lead->days_until_contact !!}) @endif</span> <i
+												class="glyphicon glyphicon-calendar" data-toggle="modal"
+												data-target="#ModalFollowUp"></i></p> <!--Remove days left if lead is completed-->
 
-                @else
-                    <p>{{ __('Follow up') }}: <span style="color:green;">{{date('d, F Y, H:i', strTotime($lead->contact_date))}}
+								@else
+									<p>{{ __('Follow up') }}: <span style="color:green;">{{date('d, F Y, H:i', strTotime($lead->contact_date))}}
 
-                            @if($lead->status == 1) ({!! $lead->days_until_contact !!})<i
-                                    class="glyphicon glyphicon-calendar" data-toggle="modal"
-                                    data-target="#ModalFollowUp"></i>@endif</span></p>
-                    <!--Remove days left if lead is completed-->
-                @endif
-                @if($lead->status == 1)
-                    {{ __('Status') }}: {{ __('Contact') }}
-                @elseif($lead->status == 2)
-                    {{ __('Status') }}: {{ __('Completed') }}
-                @elseif($lead->status == 3)
-                    {{ __('Status') }}: {{ __('Not interested') }}
-                @endif
-
+											@if($lead->status == 1) ({!! $lead->days_until_contact !!})<i
+													class="glyphicon glyphicon-calendar" data-toggle="modal"
+													data-target="#ModalFollowUp"></i>@endif</span></p>
+									<!--Remove days left if lead is completed-->
+								@endif
+							</div>
+							<div style="clear:both;"></div>
+							<div>
+								@if($lead->status == 1)
+									{{ __('Status') }}: {{ __('Contact') }}
+								@elseif($lead->status == 2)
+									{{ __('Status') }}: {{ __('Completed') }}
+								@elseif($lead->status == 3)
+									{{ __('Status') }}: {{ __('Not interested') }}
+								@endif
+							</div>
 						</div>
 					</div>
 				</div>
