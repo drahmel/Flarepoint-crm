@@ -32,8 +32,8 @@
             columns: [
 
                 {data: 'photoimg', name: 'photo'},
-                {data: 'name', name: 'name'},
-                {data: 'titlelink', name: 'title'},
+                {data: 'name', name: 'leads.name', searchable: true},
+                {data: 'titlelink', name: 'leads.title', searchable: true},
                 {data: 'user_created_id', name: 'user_created_id'},
                 {data: 'contact_date', name: 'contact_date',},
                 {data: 'user_assigned_id', name: 'user_assigned_id'},
