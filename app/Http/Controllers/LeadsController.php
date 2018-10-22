@@ -59,14 +59,17 @@ class LeadsController extends Controller
     	$dateFormat = 'm/d/Y';
 
         $leads = Lead::select(
-            ['id', 'title', 'name', 'photo', 'user_created_id', 'client_id', 'user_assigned_id', 'contact_date', 'updated_at', 'summary']
+            ['id', 'title', 'name', 'photo', 'user_created_id', 'client_id', 'user_assigned_id', 'contact_date', 'updated_at']
         )->where('status', 1);
         return Datatables::of($leads)
             ->addColumn('namelink', function ($leads) {
                 return '<a href="leads/' . $leads->id . '" ">' . $leads->name . '</a>';
             })
             ->addColumn('titlelink', function ($leads) {
-                return '<a href="leads/' . $leads->id . '" ">' . $leads->title . '</a>';
+				$comments = $leads->comments;
+				$lastComment = $comments[count($comments)-1];
+                return '<a href="leads/' . $leads->id . '" ">' . $leads->title . '</a>' .
+                	"<div class='smalltext'>Most Recent Comment ({$lastComment['updated_at']}): {$lastComment['description']}</div>";
             })
             ->addColumn('photoimg', function ($leads) {
                 return '<img style="width:64px;" src="' . $leads->photo . '" "/>';
@@ -77,10 +80,6 @@ class LeadsController extends Controller
             ->editColumn('contact_date', function ($leads) use ($dateFormat) {
                 return $leads->contact_date ? with(new Carbon($leads->contact_date))
                     ->format($dateFormat) : '';
-            })
-            ->editColumn('summary', function ($leads) {
-            		$comments = $leads->comments;
-                return $comments[count($comments)-1]['description'];
             })
             ->editColumn('user_assigned_id', function ($leads) {
                 return $leads->user->name;
