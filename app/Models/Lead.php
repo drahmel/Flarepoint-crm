@@ -26,7 +26,7 @@ class Lead extends Model
         'phone_num',
         'email',
         'worflow_step_id',
-
+        'attachment_path',
     ];
     protected $dates = ['contact_date'];
 

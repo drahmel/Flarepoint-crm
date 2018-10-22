@@ -139,7 +139,7 @@ $('body').click(function(e) {
                         class="sidebar-icon fa fa-users"></i><span id="menu-txt">{{ __('Users') }}</span>
             <i class="ion-chevron-up  arrow-up sidebar-arrow"></i></a>
             <div class="collapse" id="user">
-                <a href="{{ route('users.index')}}" class="list-group-item childlist">{{ __('Users All') }}</a>
+                <a href="{{ route('users.index')}}" class="list-group-item childlist">{{ __('All Users') }}</a>
                 @if(Entrust::can('user-create'))
                     <a href="{{ route('users.create')}}"
                        class="list-group-item childlist">{{ __('New User') }}</a>

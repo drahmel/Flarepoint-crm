@@ -39,6 +39,10 @@
             {!! Form::label('contact_time', __('Time'), ['class' => 'control-label']) !!}
             {!! Form::time('contact_time', '11:00', ['class' => 'form-control']) !!}
         </div>
+		<div class="form-group">
+			{{ Form::label('attachment_path', __('Attachment'), ['class' => 'control-label']) }}
+			{!! Form::file('attachment_path',  null, ['class' => 'form-control']) !!}
+		</div>
 
     </div>
 

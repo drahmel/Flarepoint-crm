@@ -66,10 +66,10 @@ class UsersController extends Controller
                 return '<a href="users/' . $users->id . '" ">' . $users->name . '</a>';
             })
             ->addColumn('edit', function ($user) {
-                return '<a href="' . route("users.edit", $user->id) . '" class="btn btn-success"> Edit</a>';
+                return '<a href="' . route("users.edit", $user->id) . '" class="btn btn-success"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>';
             })
-            ->add_column('delete', function ($user) { 
-                return '<button type="button" class="btn btn-danger delete_client" data-client_id="' . $user->id . '" onClick="openModal(' . $user->id. ')" id="myBtn">Delete</button>';
+            ->add_column('delete', function ($user) {
+                return '<button type="button" class="btn btn-danger delete_client" data-client_id="' . $user->id . '" onClick="openModal(' . $user->id. ')" id="myBtn"><i class="fa fa-trash" aria-hidden="true"></i></button>';
             })->make(true);
     }
 
@@ -156,7 +156,7 @@ class UsersController extends Controller
             ->make(true);
 
 
-      
+
     }
 
 
