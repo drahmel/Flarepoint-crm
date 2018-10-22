@@ -55,8 +55,11 @@ class LeadsController extends Controller
      */
     public function anyData()
     {
+    	$dateFormat = 'd/m/Y';
+    	$dateFormat = 'm/d/Y';
+
         $leads = Lead::select(
-            ['id', 'title', 'name', 'photo', 'user_created_id', 'client_id', 'user_assigned_id', 'contact_date', 'updated_at']
+            ['id', 'title', 'name', 'photo', 'user_created_id', 'client_id', 'user_assigned_id', 'contact_date', 'updated_at', 'summary']
         )->where('status', 1)->orderBy('id', 'DESC')->get();
         return Datatables::of($leads)
             ->addColumn('namelink', function ($leads) {
@@ -71,9 +74,13 @@ class LeadsController extends Controller
             ->editColumn('user_created_id', function ($leads) {
                 return $leads->creator->name;
             })
-            ->editColumn('contact_date', function ($leads) {
+            ->editColumn('contact_date', function ($leads) use ($dateFormat) {
                 return $leads->contact_date ? with(new Carbon($leads->contact_date))
-                    ->format('d/m/Y') : '';
+                    ->format($dateFormat) : '';
+            })
+            ->editColumn('summary', function ($leads) {
+            		$comments = $leads->comments;
+                return $comments[count($comments)-1]['description'];
             })
             ->editColumn('user_assigned_id', function ($leads) {
                 return $leads->user->name;
