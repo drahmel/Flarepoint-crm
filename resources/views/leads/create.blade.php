@@ -10,6 +10,11 @@
             ]) !!}
 
     <div class="form-group">
+        {!! Form::label('Name', __('Name'), ['class' => 'control-label']) !!}
+        {!! Form::text('Name', null, ['class' => 'form-control']) !!}
+    </div>
+
+    <div class="form-group">
         {!! Form::label('title', __('Title'), ['class' => 'control-label']) !!}
         {!! Form::text('title', null, ['class' => 'form-control']) !!}
     </div>

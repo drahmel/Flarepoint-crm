@@ -33,10 +33,10 @@ $curDate = new DateTime();
         {!! Form::textarea('description', null, ['class' => 'form-control', 'id' => 'comment-field', 'rows' => 5]) !!}
 
         {!! Form::submit( __('Add Comment') , ['class' => 'btn btn-primary']) !!}
+    	<div id="btnSentLI" class="btn btn-info">Sent LinkedIn Invitation</div>
     </div>
     {!! Form::close() !!}
 @endif
-
 <?php $count = 0;?>
 <?php $i = 1 ?>
 @foreach($subject->comments as $comment)
@@ -72,6 +72,21 @@ $curDate = new DateTime();
                     })
                 }
             }
-        })
+        });
+
+
+	 $('#btnSentLI').bind("click", function (event) {
+	   var insertStr = "Sent LinkedIn Invitation.";
+	   var el = $("#comment-field");
+	   var val = el.val();
+	   var ta = el[0];
+	   var indexOf = el.prop('selectionStart');
+		var ss=ta.selectionStart
+		var se=ta.selectionEnd
+		ta.value=ta.value.substring(0,ss)+insertStr+ta.value.substring(se,ta.value.length)
+		//ta.setSelectionRange(ss+choicebox.value.length+2,ss+choicebox.value.length+2)
+
+	})
+
     </script>
 @endpush
