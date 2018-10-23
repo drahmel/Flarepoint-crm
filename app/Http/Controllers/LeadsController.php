@@ -77,8 +77,10 @@ class LeadsController extends Controller
 							$maxId = $comment->id;
 						}
 					}
-
-					$lastCommentStr = "<div class='smalltext'>Most Recent Comment ({$lastComment['updated_at']}): {$lastComment['description']}</div>";
+					$curDate = new \DateTime();
+					$date2 = new \DateTime($lastComment->created_at);
+					$interval = $curDate->diff($date2);
+					$lastCommentStr = "<div class='smalltext'>Last Comment (" . $interval->days . " days ago on ".date("m/d", strtotime($lastComment->created_at))."): {$lastComment['description']}</div>";
 				}
                 return '<a href="leads/' . $leads->id . '" ">' . $leads->title . '</a>' . $lastCommentStr
                 	;
