@@ -15,6 +15,7 @@
             <th>{{ __('Status') }}</th>
             <th>{{ __('Assigned') }}</th>
             <th>{{ __('Updated At') }}</th>
+            <th></th>
 
         </tr>
         </thead>
@@ -38,6 +39,7 @@
                 {data: 'workflow_step_id', name: 'workflow_step_id'},
                 {data: 'user_assigned_id', name: 'user_assigned_id'},
                 {data: 'updated_at', name: 'updated_at'},
+                {data: 'edit', name: 'edit', searchable: false},
 
 
             ]

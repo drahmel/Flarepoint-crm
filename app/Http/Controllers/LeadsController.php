@@ -86,6 +86,9 @@ class LeadsController extends Controller
             ->addColumn('photoimg', function ($leads) {
                 return '<img style="width:64px;" src="' . (!empty($leads->photo) ? $leads->photo : '/images/persona_placeholder.png') . '" "/>';
             })
+            ->addColumn('edit', function ($leads) {
+                return '<a href="' . route("leads.edit", $leads->id) . '" class="btn btn-success"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>';
+            })
             ->editColumn('user_created_id', function ($leads) {
                 return $leads->creator->name;
             })
@@ -159,6 +162,30 @@ class LeadsController extends Controller
             ->withLead($this->leads->find($id))
             ->withUsers($this->users->getAllUsersWithDepartments())
             ->withCompanyname($this->settings->getCompanyName());
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function edit($id)
+    {
+        return view('leads.edit')
+            ->withLead($this->leads->find($id));
+            //->withRoles($this->roles->listAllRoles())
+            //->withDepartments($this->departments->listAllDepartments());
+    }
+
+    /**
+     * @param $id
+     * @param UpdateLeadRequest $request
+     * @return mixed
+     */
+    public function update($id, Request $request)
+    {
+        $this->leads->update($id, $request);
+        Session()->flash('flash_message', 'Lead successfully updated');
+        return redirect()->back();
     }
 
     /**

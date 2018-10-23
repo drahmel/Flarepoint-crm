@@ -2,6 +2,8 @@
 namespace App\Repositories\Lead;
 
 use App\Models\Lead;
+use App\Models\Setting;
+use Illuminate\Support\Facades\Session;
 use Notifynder;
 use Carbon;
 use DB;
@@ -58,6 +60,44 @@ class LeadRepository implements LeadRepositoryContract
         event(new \App\Events\LeadAction($lead, self::CREATED));
 
         return $insertedId;
+    }
+
+    /**
+     * @param $id
+     * @param $requestData
+     * @return mixed
+     */
+    public function update($id, $requestData)
+    {
+        $settings = Setting::first();
+    	/*
+        $companyname = $settings->company;
+        */
+        $lead = Lead::findorFail($id);
+
+        if ($requestData->hasFile('attachment_path')) {
+            $settings = Setting::findOrFail(1);
+            $companyname = $settings->company;
+            $file =  $requestData->file('attachment_path');
+
+            $destinationPath =  public_path(). '/images/'. $companyname;
+            $filename = str_random(8) . '_' . $file->getClientOriginalName() ;
+
+            $file->move($destinationPath, $filename);
+            if ($requestData->password == "") {
+                $input =  array_replace($requestData->except('password'), ['image_path'=>"$filename"]);
+            } else {
+                $input =  array_replace($requestData->all(), ['image_path'=>"$filename", 'password'=>"$password"]);
+            }
+        } else {
+                $input =  array_replace($requestData->except('password'));
+        }
+
+        $lead->fill($input)->save();
+
+        Session::flash('flash_message', 'Lead successfully updated!');
+
+        return $lead;
     }
 
     /**
