@@ -104,7 +104,8 @@ class LeadsController extends Controller
             })
             ->editColumn('user_assigned_id', function ($leads) {
                 return $leads->user->name;
-            })->make(true);
+            })
+            ->make(true);
     }
 
     /**

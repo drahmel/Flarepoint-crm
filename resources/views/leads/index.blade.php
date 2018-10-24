@@ -35,7 +35,7 @@
                 {data: 'photoimg', name: 'photo'},
                 {data: 'name', name: 'leads.name', searchable: true},
                 {data: 'titlelink', name: 'leads.title', searchable: true},
-                {data: 'location', name: 'location',},
+                {data: 'location', name: 'location', searchable: true},
                 {data: 'workflow_step_id', name: 'workflow_step_id'},
                 {data: 'user_assigned_id', name: 'user_assigned_id'},
                 {data: 'updated_at', name: 'updated_at'},
