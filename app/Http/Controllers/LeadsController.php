@@ -53,7 +53,7 @@ class LeadsController extends Controller
      * Data for Data tables
      * @return mixed
      */
-    public function anyData()
+    public function anyData(Request $request = null)
     {
     	$dateFormat = 'd/m/Y';
     	$dateFormat = 'm/d/Y';
@@ -62,6 +62,9 @@ class LeadsController extends Controller
             ['id', 'title', 'name', 'location', 'photo', 'workflow_step_id', 'user_created_id', 'client_id', 'user_assigned_id', 'contact_date', 'updated_at']
         )->where('status', 1);
         return Datatables::of($leads)
+            //->filter(function ($query) use ($request) {
+            //
+            //})
             ->addColumn('namelink', function ($leads) {
                 return '<a href="leads/' . $leads->id . '" ">' . $leads->name . '</a>';
             })
